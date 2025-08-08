@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>2D SimCity</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="gameCanvas" width="640" height="480"></canvas>
+
+  <div id="controls">
+    <div>
+      <strong>Выбор зоны:</strong>
+      <button onclick="selectZone(0)">Нет</button>
+      <button onclick="selectZone(1)">Жилая</button>
+      <button onclick="selectZone(2)">Коммерция</button>
+      <button onclick="selectZone(3)">Промышленность</button>
+    </div>
+    <div style="margin-top:5px;">
+      <strong>Строительство:</strong>
+      <button onclick="selectTile(0)">Стереть</button>
+      <button onclick="selectTile(1)">Жилой дом</button>
+      <button onclick="selectTile(2)">Магазин</button>
+      <button onclick="selectTile(3)">Завод</button>
+      <button onclick="selectTile(6)">Дорога</button>
+      <button onclick="selectTile(8)">Школа</button>
+      <button onclick="selectTile(10)">Парк</button>
+      <button onclick="selectTile(11)">Автобусная остановка</button>
+      <button onclick="selectTile(12)">Больница</button>
+    </div>
+    <div style="margin-top:10px;">
+      <strong>Налоги:</strong>
+      <label>Жилые: <input id="taxRes" type="number" min="0" max="1" step="0.01" value="0.1"></label>
+      <label>Коммерция: <input id="taxCom" type="number" min="0" max="1" step="0.01" value="0.1"></label>
+      <label>Промышленность: <input id="taxInd" type="number" min="0" max="1" step="0.01" value="0.1"></label>
+      <button id="applyTaxes">Применить</button>
+    </div>
+  </div>
+
+  <div id="stats"></div>
+
+  <script src="game.js"></script>
+  <script>
+    function selectTile(t) {
+      window.selectedTile = t;
+      window.selectedZone = 0;
+    }
+    function selectZone(z) {
+      window.selectedZone = z;
+      window.selectedTile = 0;
+    }
+
+    document.getElementById("applyTaxes").addEventListener("click", () => {
+      window.taxResidential = parseFloat(document.getElementById("taxRes").value);
+      window.taxCommercial = parseFloat(document.getElementById("taxCom").value);
+      window.taxIndustrial = parseFloat(document.getElementById("taxInd").value);
+      alert("Налоги обновлены!");
+    });
+
+    window.selectedTile = 0;
+    window.selectedZone = 0;
+    window.taxResidential = 0.1;
+    window.taxCommercial = 0.1;
+    window.taxIndustrial = 0.1;
+  </script>
+</body>
+</html>

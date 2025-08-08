@@ -1,0 +1,33 @@
+# Node modules — не кладём в репо, весит тонна
+node_modules/
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Среда разработки
+.vscode/
+.idea/
+
+# Файлы с кэшем
+.cache/
+*.log
+
+# Среда работы с пакетами
+package-lock.json
+yarn.lock
+
+# Сборка и артефакты
+dist/
+build/
+out/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Переменные окружения (секреты)
+.env
+.env.local
+.env.*.local
