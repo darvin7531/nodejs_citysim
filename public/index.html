@@ -4,80 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NodeJS CitySim</title>
-  <link rel="stylesheet" href="./style.css" />
   <style>
-    body {
-      margin: 0;
-      background: #111;
-      color: #ccc;
-      font-family: monospace, monospace;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-    aside.control-panel {
-      width: 250px;
-      background: #222;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      user-select: none;
-    }
-    aside.control-panel button {
-      cursor: pointer;
-      font-size: 1.3rem;
-      margin: 0.15rem 0;
-      padding: 0.4rem 0.5rem;
-      background: #333;
-      color: #eee;
-      border: 1px solid #444;
-      border-radius: 3px;
-      transition: background-color 0.2s ease;
-    }
-    aside.control-panel button:hover {
-      background: #555;
-    }
-    #status {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: #aaa;
-      user-select: text;
-    }
-    #stats {
-      margin-top: auto;
-      padding-top: 1rem;
-      border-top: 1px solid #444;
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-    main#game-canvas {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-    }
-    canvas#canvas {
-      background: #222;
-      image-rendering: pixelated;
-      border: 2px solid #444;
-      box-shadow: 0 0 10px #000a inset;
-    }
+    body{margin:0;background:#111;color:#ccc;font-family:monospace,monospace;display:flex;height:100vh;overflow:hidden}aside.control-panel{width:250px;background:#222;padding:1rem;display:flex;flex-direction:column;box-sizing:border-box;user-select:none}aside.control-panel button{cursor:pointer;font-size:1.3rem;margin:0.15rem 0;padding:0.4rem 0.5rem;background:#333;color:#eee;border:1px solid #444;border-radius:3px;transition:background-color .2s ease}aside.control-panel button.active{background:#579;border-color:#79c}aside.control-panel button:hover{background:#555}#status{margin-top:1rem;font-size:.85rem;color:#aaa;user-select:text}#stats{margin-top:auto;padding-top:1rem;border-top:1px solid #444;font-size:.9rem;line-height:1.5}main#game-canvas{flex-grow:1;display:flex;justify-content:center;align-items:center;background:#000}canvas#canvas{background:#222;image-rendering:pixelated;border:2px solid #444;box-shadow:0 0 10px #000a inset}#tile-inspector{margin-top:1rem;padding:.5rem;border:1px dashed #555;border-radius:4px;min-height:80px;background:#1a1a1a}#tile-inspector h3{margin:0 0 .5rem 0;color:#fff;font-size:1.1rem}#tile-inspector p{margin:.2rem 0;font-size:.9rem}.hidden{display:none}
   </style>
 </head>
 <body>
   <aside class="control-panel">
-    <button id="build-house" title="Построить дом">🏠 Построить дом</button>
-    <button id="build-road" title="Построить дорогу">🛣️ Построить дорогу</button>
-    <button id="build-factory" title="Построить завод">🏭 Построить завод</button>
-    <button id="build-park" title="Построить парк">🌳 Построить парк</button>
+    <!-- Зоны -->
+    <button id="build-house" title="Жилой дом">🏠 Дом</button>
+    <button id="build-factory" title="Завод">🏭 Завод</button>
+    <hr style="border-color: #444; width: 100%; margin: 0.5rem 0;">
+    <!-- Инфраструктура и службы -->
+    <button id="build-road" title="Дорога">🛣️ Дорога</button>
+    <button id="build-power-plant" title="Электростанция">⚡️ Станция</button>
+    <button id="build-fire-station" title="Пожарная станция">🚒 Пожарная</button> <!-- НОВАЯ КНОПКА -->
+    <button id="build-park" title="Парк">🌳 Парк</button>
+    <hr style="border-color: #444; width: 100%; margin: 0.5rem 0;">
+    <!-- Действия -->
     <button id="upgrade" title="Улучшить">⚙️ Улучшить</button>
     <button id="demolish" title="Снести">🧨 Снести</button>
-
+    <button id="toggle-land-value" title="Показать ценность земли">📊 Ценность</button>
+    
     <div id="status">
       Режим: <span id="mode-status">Обычный</span>
     </div>
+
+    <section id="tile-inspector">
+      <div id="inspector-default">Кликните на клетку для информации</div>
+      <div id="inspector-content" class="hidden">
+        <h3 id="inspector-title"></h3>
+        <p>Уровень: <span id="inspector-level"></span></p>
+        <p>Ценность земли: <span id="inspector-land-value"></span></p>
+        <p id="inspector-info"></p>
+      </div>
+    </section>
 
     <section id="stats">
       <div>💰 Деньги: <span id="stat-cash">0</span></div>
