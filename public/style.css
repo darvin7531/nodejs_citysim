@@ -1,16 +1,69 @@
+/* Базовые стили для body и canvas */
 body {
-  background: #202020;
-  color: white;
-  font-family: sans-serif;
-  text-align: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #222;
+  color: #eee;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
-canvas {
+
+/* Панель управления слева */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
   background: #333;
-  margin-top: 10px;
-  cursor: pointer;
+  width: 4rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.7);
+  user-select: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
-button {
-  margin: 5px;
-  padding: 10px;
-  font-size: 16px;
+
+/* Кнопки в панели */
+.control-panel button {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #eee;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.control-panel button:hover {
+  background-color: #555;
+}
+
+/* Основной блок для игры (Canvas) */
+#game-canvas {
+  margin-left: 4rem;
+  flex-grow: 1;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Подсказки (tooltip) */
+.control-panel button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #000c;
+  color: #eee;
+  padding: 3px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  top: 2.5rem;
+  left: 4.5rem;
+  font-size: 0.75rem;
+  pointer-events: none;
+  user-select: none;
 }

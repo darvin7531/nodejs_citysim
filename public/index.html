@@ -2,66 +2,95 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>2D SimCity</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NodeJS CitySim</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #ccc;
+      font-family: monospace, monospace;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    aside.control-panel {
+      width: 250px;
+      background: #222;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    aside.control-panel button {
+      cursor: pointer;
+      font-size: 1.3rem;
+      margin: 0.15rem 0;
+      padding: 0.4rem 0.5rem;
+      background: #333;
+      color: #eee;
+      border: 1px solid #444;
+      border-radius: 3px;
+      transition: background-color 0.2s ease;
+    }
+    aside.control-panel button:hover {
+      background: #555;
+    }
+    #status {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      user-select: text;
+    }
+    #stats {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid #444;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    main#game-canvas {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+    canvas#canvas {
+      background: #222;
+      image-rendering: pixelated;
+      border: 2px solid #444;
+      box-shadow: 0 0 10px #000a inset;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="640" height="480"></canvas>
+  <aside class="control-panel">
+    <button id="build-house" title="Построить дом">🏠 Построить дом</button>
+    <button id="build-road" title="Построить дорогу">🛣️ Построить дорогу</button>
+    <button id="build-factory" title="Построить завод">🏭 Построить завод</button>
+    <button id="build-park" title="Построить парк">🌳 Построить парк</button>
+    <button id="upgrade" title="Улучшить">⚙️ Улучшить</button>
+    <button id="demolish" title="Снести">🧨 Снести</button>
 
-  <div id="controls">
-    <div>
-      <strong>Выбор зоны:</strong>
-      <button onclick="selectZone(0)">Нет</button>
-      <button onclick="selectZone(1)">Жилая</button>
-      <button onclick="selectZone(2)">Коммерция</button>
-      <button onclick="selectZone(3)">Промышленность</button>
+    <div id="status">
+      Режим: <span id="mode-status">Обычный</span>
     </div>
-    <div style="margin-top:5px;">
-      <strong>Строительство:</strong>
-      <button onclick="selectTile(0)">Стереть</button>
-      <button onclick="selectTile(1)">Жилой дом</button>
-      <button onclick="selectTile(2)">Магазин</button>
-      <button onclick="selectTile(3)">Завод</button>
-      <button onclick="selectTile(6)">Дорога</button>
-      <button onclick="selectTile(8)">Школа</button>
-      <button onclick="selectTile(10)">Парк</button>
-      <button onclick="selectTile(11)">Автобусная остановка</button>
-      <button onclick="selectTile(12)">Больница</button>
-    </div>
-    <div style="margin-top:10px;">
-      <strong>Налоги:</strong>
-      <label>Жилые: <input id="taxRes" type="number" min="0" max="1" step="0.01" value="0.1"></label>
-      <label>Коммерция: <input id="taxCom" type="number" min="0" max="1" step="0.01" value="0.1"></label>
-      <label>Промышленность: <input id="taxInd" type="number" min="0" max="1" step="0.01" value="0.1"></label>
-      <button id="applyTaxes">Применить</button>
-    </div>
-  </div>
 
-  <div id="stats"></div>
+    <section id="stats">
+      <div>💰 Деньги: <span id="stat-cash">0</span></div>
+      <div>👥 Население: <span id="stat-population">0</span></div>
+      <div>☣ Загрязнение: <span id="stat-pollution">0</span></div>
+      <div>😊 Счастье: <span id="stat-happiness">0</span>%</div>
+    </section>
+  </aside>
 
-  <script src="game.js"></script>
-  <script>
-    function selectTile(t) {
-      window.selectedTile = t;
-      window.selectedZone = 0;
-    }
-    function selectZone(z) {
-      window.selectedZone = z;
-      window.selectedTile = 0;
-    }
+  <main id="game-canvas">
+    <canvas id="canvas" width="960" height="640"></canvas>
+  </main>
 
-    document.getElementById("applyTaxes").addEventListener("click", () => {
-      window.taxResidential = parseFloat(document.getElementById("taxRes").value);
-      window.taxCommercial = parseFloat(document.getElementById("taxCom").value);
-      window.taxIndustrial = parseFloat(document.getElementById("taxInd").value);
-      alert("Налоги обновлены!");
-    });
-
-    window.selectedTile = 0;
-    window.selectedZone = 0;
-    window.taxResidential = 0.1;
-    window.taxCommercial = 0.1;
-    window.taxIndustrial = 0.1;
-  </script>
+  <script type="module" src="../src/main.js"></script>
 </body>
 </html>

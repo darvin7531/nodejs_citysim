@@ -7,9 +7,30 @@
   "type": "module",
   "start": "node server.js",
   "scripts": {
-    "start": "node server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
-    "express": "^4.21.2"
-  }
+    "dotenv": "^17.2.1",
+    "events": "^3.3.0",
+    "express": "^4.21.2",
+    "path": "^0.12.7",
+    "vite": "^7.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  },
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darvin7531/nodejs_citysim.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/darvin7531/nodejs_citysim/issues"
+  },
+  "homepage": "https://github.com/darvin7531/nodejs_citysim#readme"
 }
